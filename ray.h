@@ -15,7 +15,7 @@ typedef struct ray {
 };
 ray() {}
 
-ray(ray &r,const point3& origins, const vec3& directions){
+void ray(ray &r,const point3& origins, const vec3& directions){
 	if (r == NULL) return 0;
 	r->origin(origins);
 	r->direction(directions);
