@@ -10,8 +10,14 @@ struct Vec3 {
   double y;
   double z;
 };
-
 typedef struct Vec3 *p_vec3;
+
+typedef struct Vec3 Color;
+typedef struct Vec3 *p_color;
+typedef struct Vec3 Point3;
+typedef struct Vec3 *p_point3;
+
+void write_vec3(FILE *out, p_vec3 vec);
 
 p_vec3 create_vec3(double x, double y, double z);
 

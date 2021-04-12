@@ -11,6 +11,10 @@ double random_double(double low, double high) {
   return (low + d * (high - low));
 }
 
+void write_vec3(FILE *out, p_vec3 vec) {
+  fprintf(out, "%f %f %f", vec->x, vec->y, vec->z);
+}
+
 p_vec3 create_vec3(double x, double y, double z) {
   p_vec3 vec = malloc(sizeof(struct Vec3));
   vec->x = x;
