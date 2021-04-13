@@ -4,7 +4,6 @@
 #include "vec3.h"
 #include "ray.h"
 
-
 typedef struct camera {
     point3 origin;
     point3 lower_left_corner;

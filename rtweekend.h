@@ -5,11 +5,8 @@
 #include <math.h>
 #include <limits.h>
 
-const double infinity = INFINITY;
-const double pi = 3.1415926535897932385;
-
 double inline degrees_to_radians(double degrees) {
-    return degrees * pi / 180;
+    return degrees * 3.1415926535897932385 / 180;
 }
 
 double inline random_double() {

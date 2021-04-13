@@ -1,6 +1,5 @@
 #include "camera.h"
 #include "math.h"
-#include "ray.h"
 
 camera create_camera(point3 lookfrom,
                      point3 lookat,

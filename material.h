@@ -4,12 +4,12 @@
 #include "stdbool.h"
 #include "color.h"
 #include "ray.h"
-#include "sphere.h"
+#include "hit_record.h"
 
 typedef struct material {
     color albedo;
     double fuzz_ir;
-    bool (*scatter)(material * m, ray *, hit_record *, color *, ray *);
+    bool (*scatter)(struct material* m, ray* r_in, hit_record* rec, color* attenuation, ray* scattered);
 } material;
 
 bool scatter_lambertian(material * m, ray * r_in, hit_record * rec, color * attenuation, ray * scattered);

@@ -1,9 +1,5 @@
 #include "color.h"
 
-double clamp(double value, double low, double high) {
-  return fmin(fmax(value, low), high);
-}
-
 int get_color(double value) { return (int)(256 * clamp(value, 0.0, 0.999)); }
 
 void write_color(FILE* out, color* pixel_color, int samples_per_pixel) {
