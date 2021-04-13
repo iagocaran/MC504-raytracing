@@ -7,6 +7,7 @@
 #include "material.h"
 
 #include <iostream>
+#include <chrono>
 #include <thread>
 
 using namespace std;
@@ -99,6 +100,7 @@ int main() {
     camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
 
     // Render
+    auto start = std::chrono::system_clock::now();
 
     std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
@@ -136,8 +138,12 @@ int main() {
             write_color(std::cout, image[j][i], samples_per_pixel);
         //*/
     }
+    auto end = std::chrono::system_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
     std::cerr << "\nDone.\n";
+    std::cerr << "Elapsed time: " << elapsed.count() << " milliseconds" << endl;
+    std::cerr << "Elapsed time: " << std::chrono::duration_cast<std::chrono::seconds>(elapsed).count() << " seconds" << endl;
 
     return EXIT_SUCCESS;
 }
