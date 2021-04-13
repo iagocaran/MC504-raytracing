@@ -5,6 +5,14 @@ inline void set_face_normal(hit_record * rec, ray * r, const vec3 outward_normal
     rec->normal = rec->front_face ? outward_normal : invert_vec3(outward_normal);
 }
 
+sphere create_sphere(point3 cen, double r, material * m) {
+    sphere s;
+    s.center = cen;
+    s.radius = r;
+    s.mat = m;
+    return s;
+}
+
 bool hit(sphere * s, ray * r, double t_min, double t_max, hit_record * rec) {
     vec3 oc = subtract_vec3(r->origin, s->center);
     double a = length_squared(r->direction);

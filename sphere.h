@@ -13,6 +13,7 @@ typedef struct sphere {
     material * mat;
 } sphere;
 
+sphere create_sphere(point3 cen, double r, material * m);
 bool hit(sphere * s, ray * r, double t_min, double t_max, hit_record * rec);
 
 #endif //RAYTRACING_SPHERE_H
