@@ -8,6 +8,6 @@ ray create_ray(const point3 origins, const vec3 directions){
     return r;
 }
 
-point3 at(ray *r, double t) {
+point3 at(ray * r, double t) {
     return add_vec3(r->origin, multiply_vec3_d(r->direction, t));
 }
