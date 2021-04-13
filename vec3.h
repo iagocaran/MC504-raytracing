@@ -49,12 +49,14 @@ inline vec3 unit_vector(vec3 vec);
 
 vec3 random_unit_vector();
 
+vec3 random_in_unit_sphere();
+
 vec3 random_in_hemisphere_vec3(vec3 normal);
 
 vec3 random_in_unit_disk_vec3();
 
-vec3 reflect_vec3(vec3 vec, vec3 normal);
+vec3 reflect(vec3 vec, vec3 normal);
 
-vec3 refract_vec3(vec3 unit_vec, vec3 normal, double etai_over_etat);
+vec3 refract(vec3 unit_vec, vec3 normal, double etai_over_etat);
 
 #endif  // RAYTRACING_VEC3_H

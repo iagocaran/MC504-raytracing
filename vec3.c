@@ -129,11 +129,11 @@ vec3 random_in_unit_disk_vec3() {
     return vec;
 }
 
-vec3 reflect_vec3(vec3 vec, vec3 normal) {
+vec3 reflect(vec3 vec, vec3 normal) {
     return subtract_vec3(vec, multiply_vec3_d(normal, 2 * dot(vec, normal)));
 }
 
-vec3 refract_vec3(vec3 unit_vec, vec3 normal, double etai_over_etat) {
+vec3 refract(vec3 unit_vec, vec3 normal, double etai_over_etat) {
     double cos_theta = fmin(dot(invert_vec3(unit_vec), normal), 1);
     vec3 r_out_perp = multiply_vec3_d(add_vec3(unit_vec, multiply_vec3_d(normal, cos_theta)), etai_over_etat);
     vec3 r_out_parallel = multiply_vec3_d(normal, - sqrt(fabs(1.0 - length_squared_vec3(r_out_perp))));
