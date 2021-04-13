@@ -33,9 +33,9 @@ vec3 subtract_vec3(vec3 left, vec3 right);
 
 vec3 subtract_vec3_d(vec3 vec, double scalar);
 
-double dot_product_vec3(vec3 vec1, vec3 vec2);
+double dot(vec3 vec1, vec3 vec2);
 
-vec3 cross_product_vec3(vec3 left, vec3 right);
+vec3 cross(vec3 left, vec3 right);
 
 inline vec3 multiply_vec3_d(vec3 vec, double scalar);
 
@@ -45,9 +45,9 @@ double length_vec3(vec3 vec);
 
 int is_near_zero_vec3(vec3 vec);
 
-inline vec3 unit_vector_vec3(vec3 vec);
+inline vec3 unit_vector(vec3 vec);
 
-vec3 random_unit_vector_vec3();
+vec3 random_unit_vector();
 
 vec3 random_in_hemisphere_vec3(vec3 normal);
 

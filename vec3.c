@@ -57,11 +57,11 @@ inline vec3 subtract_vec3_d(vec3 vec, double scalar) {
     return add_scalar_vec3(vec, -scalar);
 }
 
-inline double dot_product_vec3(vec3 vec1, vec3 vec2) {
+inline double dot(vec3 vec1, vec3 vec2) {
     return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z;
 }
 
-inline vec3 cross_product_vec3(vec3 left, vec3 right) {
+inline vec3 cross(vec3 left, vec3 right) {
     vec3 out;
 
     out.x = left.y * right.z - left.z * right.y;
@@ -83,7 +83,7 @@ inline vec3 divide_vec3_d(vec3 vec, double scalar) {
     return multiply_vec3_d(vec, 1 / scalar);
 }
 
-inline double length_squared_vec3(vec3 vec) { return dot_product_vec3(vec, vec); }
+inline double length_squared_vec3(vec3 vec) { return dot(vec, vec); }
 
 inline double length_vec3(vec3 vec) { return sqrt(length_squared_vec3(vec)); }
 
@@ -92,7 +92,7 @@ int is_near_zero_vec3(vec3 vec) {
     return fabs(vec.x) < s && fabs(vec.y) < s && (vec.z) < s;
 }
 
-inline vec3 unit_vector_vec3(vec3 vec) {
+inline vec3 unit_vector(vec3 vec) {
     return divide_vec3_d(vec, length_vec3(vec));
 }
 
@@ -104,15 +104,15 @@ vec3 random_in_unit_sphere() {
     return vec;
 }
 
-vec3 random_unit_vector_vec3() {
+vec3 random_unit_vector() {
     vec3 vec = random_in_unit_sphere();
-    unit_vector_vec3(vec);
+    unit_vector(vec);
     return vec;
 }
 
 vec3 random_in_hemisphere_vec3(vec3 normal) {
     vec3 in_unit_sphere = random_in_unit_sphere();
-    double prod = dot_product_vec3(in_unit_sphere, normal);
+    double prod = dot(in_unit_sphere, normal);
     if (prod <= 0.0) {
         invert_vec3(in_unit_sphere);
     }
@@ -130,11 +130,11 @@ vec3 random_in_unit_disk_vec3() {
 }
 
 vec3 reflect_vec3(vec3 vec, vec3 normal) {
-    return subtract_vec3(vec, multiply_vec3_d(normal, 2 * dot_product_vec3(vec, normal)));
+    return subtract_vec3(vec, multiply_vec3_d(normal, 2 * dot(vec, normal)));
 }
 
 vec3 refract_vec3(vec3 unit_vec, vec3 normal, double etai_over_etat) {
-    double cos_theta = fmin(dot_product_vec3(invert_vec3(unit_vec), normal), 1);
+    double cos_theta = fmin(dot(invert_vec3(unit_vec), normal), 1);
     vec3 r_out_perp = multiply_vec3_d(add_vec3(unit_vec, multiply_vec3_d(normal, cos_theta)), etai_over_etat);
     vec3 r_out_parallel = multiply_vec3_d(normal, - sqrt(fabs(1.0 - length_squared_vec3(r_out_perp))));
     return add_vec3(r_out_perp, r_out_parallel);
