@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.17)
-project(raytracing C)
+project(raytracing)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_CXX_STANDARD 14)
 
-file(GLOB SOURCES *.h *.c)
+file(GLOB SOURCES *.h *.cpp)
 
 add_executable(raytracing ${SOURCES})

@@ -1,15 +1,28 @@
+//
+// Created by iagoc on 01/03/2021.
+//
+
 #ifndef RAYTRACING_RAY_H
 #define RAYTRACING_RAY_H
 
 #include "vec3.h"
 
-typedef struct ray {
-    point3 origin;
-    vec3 direction;
-} ray;
+class ray {
+    public:
+        ray() = default;
+        ray(const point3& origin, const vec3& direction)
+            : orig(origin), dir(direction)
+        {};
 
-ray create_ray(point3 origins, vec3 directions);
+        point3 origin() const { return orig; }
+        vec3 direction() const { return dir; }
 
-point3 at(ray *r, double t);
+        point3 at(double t) const {
+            return orig + t * dir;
+        }
+
+        point3 orig;
+        vec3 dir;
+};
 
 #endif //RAYTRACING_RAY_H
