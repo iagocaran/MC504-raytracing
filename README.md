@@ -1,6 +1,6 @@
 # MC504-raytracing
 
-An adaptation of threads in a C++ raytracing engine for the MC504 subject at University of Campinas (UNICAMP)
+An adaptation of threads in a C++ [raytracing](https://en.wikipedia.org/wiki/Ray_tracing_(graphics)) engine for the MC504 subject at University of Campinas (UNICAMP)
 
 ## Introduction
 
