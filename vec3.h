@@ -41,7 +41,9 @@ inline vec3 multiply_vec3_d(vec3 vec, double scalar);
 
 inline vec3 divide_vec3_d(vec3 vec, double scalar);
 
-double length_vec3(vec3 vec);
+inline double length_squared(vec3 vec);
+
+inline double length_vec3(vec3 vec);
 
 int is_near_zero_vec3(vec3 vec);
 

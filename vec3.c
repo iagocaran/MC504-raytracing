@@ -83,9 +83,9 @@ inline vec3 divide_vec3_d(vec3 vec, double scalar) {
     return multiply_vec3_d(vec, 1 / scalar);
 }
 
-inline double length_squared_vec3(vec3 vec) { return dot(vec, vec); }
+inline double length_squared(vec3 vec) { return dot(vec, vec); }
 
-inline double length_vec3(vec3 vec) { return sqrt(length_squared_vec3(vec)); }
+inline double length_vec3(vec3 vec) { return sqrt(length_squared(vec)); }
 
 int is_near_zero_vec3(vec3 vec) {
     const double s = 1e-8;
@@ -98,7 +98,7 @@ inline vec3 unit_vector(vec3 vec) {
 
 vec3 random_in_unit_sphere() {
     vec3 vec = create_random_interval_vec3(-1, 1);
-    while (length_squared_vec3(vec) >= 1) {
+    while (length_squared(vec) >= 1) {
         vec = create_random_interval_vec3(-1, 1);
     }
     return vec;
@@ -122,7 +122,7 @@ vec3 random_in_hemisphere_vec3(vec3 normal) {
 vec3 random_in_unit_disk_vec3() {
     vec3 vec = create_random_interval_vec3(-1, 1);
     vec.z = 0;
-    while (length_squared_vec3(vec) >= 1) {
+    while (length_squared(vec) >= 1) {
         vec = create_random_interval_vec3(-1, 1);
         vec.z = 0;
     }
@@ -136,6 +136,6 @@ vec3 reflect(vec3 vec, vec3 normal) {
 vec3 refract(vec3 unit_vec, vec3 normal, double etai_over_etat) {
     double cos_theta = fmin(dot(invert_vec3(unit_vec), normal), 1);
     vec3 r_out_perp = multiply_vec3_d(add_vec3(unit_vec, multiply_vec3_d(normal, cos_theta)), etai_over_etat);
-    vec3 r_out_parallel = multiply_vec3_d(normal, - sqrt(fabs(1.0 - length_squared_vec3(r_out_perp))));
+    vec3 r_out_parallel = multiply_vec3_d(normal, - sqrt(fabs(1.0 - length_squared(r_out_perp))));
     return add_vec3(r_out_perp, r_out_parallel);
 }
