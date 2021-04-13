@@ -4,7 +4,23 @@ An adaptation of threads in a C++ raytracing engine for the MC504 subject at Uni
 
 ## Introduction
 
-This project is the adaptation of my COARV-raytracing project to use threads. 
+This project is the adaptation of my COARV-raytracing project to use threads.
+The objective was to use pthreads, more specifically pthread_create and pthread_join without the need for sincronization.
+Since my main desktop is Windows, this got a little complicated, instead I'm using std::thread equivalents available in C++11.
+
+In this case pthread_create is replaced by:
+```c++
+std::thread thread1(function);
+```
+
+And pthread_join by:
+```c++
+thread1.join();
+```
+
+An example can be found here in the [documentation](https://en.cppreference.com/w/cpp/thread/thread/join).
+
+In my code, instead of declaring the function before I used a lambda expression just to leave the main loop more readable.
 
 ## Getting started
 
