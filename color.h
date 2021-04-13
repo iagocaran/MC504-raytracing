@@ -3,9 +3,8 @@
 
 #include <math.h>
 #include <stdio.h>
-
 #include "vec3.h"
 
-void write_color(FILE *out, p_color pixel_color, int samples_per_pixel);
+void write_color(FILE *out, color * pixel_color, int samples_per_pixel);
 
 #endif  // RAYTRACING_COLOR_H
