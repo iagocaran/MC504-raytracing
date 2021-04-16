@@ -7,6 +7,7 @@ An adaptation of threads in a C++ [raytracing](https://en.wikipedia.org/wiki/Ray
 This project is the adaptation of my COARV-raytracing project to use threads.
 The objective was to use pthreads, more specifically pthread_create and pthread_join without the need for sincronization.
 Since my main desktop is Windows, this got a little complicated, instead I'm using std::thread equivalents available in C++11.
+A C based version is available in the cversion branch.
 
 In this case pthread_create is replaced by:
 ```c++
