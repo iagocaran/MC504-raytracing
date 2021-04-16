@@ -34,10 +34,10 @@ bool scatter_dielectric(material * m, ray * r_in, hit_record * rec, color * atte
     double cos_theta = fmin(dot(invert_vec3(unit_direction), rec->normal), 1.0);
     double sin_theta = sqrt(1 - cos_theta * cos_theta);
 
-    bool cannot_reftact = refraction_ratio * sin_theta > 1;
+    bool cannot_refract = refraction_ratio * sin_theta > 1;
     vec3 direction;
 
-    if (cannot_reftact || reflectance(cos_theta, refraction_ratio) > random_double())
+    if (cannot_refract || reflectance(cos_theta, refraction_ratio) > random_double())
         direction = reflect(unit_direction, rec->normal);
     else
         direction = refract(unit_direction, rec->normal, refraction_ratio);
