@@ -79,6 +79,14 @@ vec3 multiply_vec3_d(vec3 vec, double scalar) {
     return out;
 }
 
+vec3 multiply_vec3_vec3(vec3 vec1, vec3 vec2) {
+    vec3 out;
+    out.x = vec1.x * vec2.x;
+    out.y = vec1.y * vec2.y;
+    out.z = vec1.z * vec2.z;
+    return out;
+}
+
 vec3 divide_vec3_d(vec3 vec, double scalar) {
     return multiply_vec3_d(vec, 1 / scalar);
 }

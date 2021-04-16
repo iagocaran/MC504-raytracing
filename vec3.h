@@ -39,6 +39,8 @@ vec3 cross(vec3 left, vec3 right);
 
 inline vec3 multiply_vec3_d(vec3 vec, double scalar);
 
+vec3 multiply_vec3_vec3(vec3 vec1, vec3 vec2);
+
 inline vec3 divide_vec3_d(vec3 vec, double scalar);
 
 inline double length_squared(vec3 vec);
