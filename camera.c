@@ -20,7 +20,7 @@ camera create_camera(point3 lookfrom,
     cam.u = unit_vector(cross(vup, cam.w));
     cam.v = cross(cam.w, cam.u);
 
-    cam.origin = lookat;
+    cam.origin = lookfrom;
     cam.horizontal = multiply_vec3_d(cam.u, focus_dist * viewport_width);
     cam.vertical = multiply_vec3_d(cam.v, focus_dist * viewport_height);
     cam.lower_left_corner = subtract_vec3(
