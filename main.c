@@ -32,14 +32,15 @@ color ray_color(ray * r, sphere * world, int n, int depth) {
         ray scattered;
         color attenuation;
         if (rec.mat_ptr->scatter(rec.mat_ptr, r, &rec, &attenuation, &scattered))
-            return cross(attenuation, ray_color(&scattered, world, n, depth - 1));
+            return multiply_vec3_vec3(attenuation, ray_color(&scattered, world, n, depth - 1));
         return create_vec3(0, 0, 0);
     }
 
     vec3 unit_direction = unit_vector(r->direction);
     double t = 0.5 * (unit_direction.y + 1.0);
-    return add_vec3(multiply_vec3_d(create_vec3(1.0, 1.0, 1.0), 1.0 - t),
-                    multiply_vec3_d(create_vec3(0.5, 0.7, 1.0), t));
+    color pixel_color = add_vec3(multiply_vec3_d(create_vec3(1.0, 1.0, 1.0), 1.0 - t),
+                               multiply_vec3_d(create_vec3(0.5, 0.7, 1.0), t));
+    return pixel_color;
 }
 
 int random_scene(sphere* world) {
@@ -58,7 +59,7 @@ int random_scene(sphere* world) {
                 material * sphere_material = malloc(sizeof(material));
 
                 if (choose_mat < 0.8) {
-                    color albedo = cross(create_random_vec3(), create_random_vec3());
+                    color albedo = multiply_vec3_vec3(create_random_vec3(), create_random_vec3());
                     *sphere_material = create_lambertian(albedo);
                     world[i++] = create_sphere(center, 0.2, sphere_material);
                 } else if (choose_mat < 0.95) {
