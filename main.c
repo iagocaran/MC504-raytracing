@@ -92,24 +92,48 @@ int random_scene(sphere* world) {
     return i;
 }
 
+typedef struct params {
+    sphere * world;
+    int size;
+    camera * cam;
+    int image_width;
+    int image_height;
+    int samples_per_pixel;
+    int i;
+    int j;
+    int max_depth;
+    color * pixel;
+} params;
+
+void * process(void * args) {
+    params * in = (params *) args;
+    color pixel_color = create_vec3(0, 0, 0);
+    for (int s = 0; s < in->samples_per_pixel; ++s) {
+        double u = (in->i + random_double()) / (in->image_width - 1);
+        double v = (in->j + random_double()) / (in->image_height - 1);
+        ray r = get_ray(in->cam, u, v);
+        pixel_color = add_vec3(pixel_color, ray_color(&r, in->world, in->size, in->max_depth));
+    }
+    *in->pixel = pixel_color;
+    free(args);
+    return NULL;
+}
+
 int main() {
     clock_t t = clock();
 
     // Image
-
     const double aspect_ratio = 3.0 / 2.0;
-    const int image_width = 600;
+    const int image_width = 60;
     const int image_height = (int) (image_width / aspect_ratio);
-    const int samples_per_pixel = 50;
+    const int samples_per_pixel = 10;
     const int max_depth = 10;
 
     //World
-
     sphere* world = malloc(500 * sizeof(sphere));
     int size = random_scene(world);
 
     // Camera
-
     point3 lookfrom = create_vec3(13,2,3);
     point3 lookat = create_vec3(0,0,0);
     vec3 vup = create_vec3(0,1,0);
@@ -119,21 +143,33 @@ int main() {
     camera cam = create_camera(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
 
     // Render
-
     fprintf(stdout, "P3\n%d %d\n255\n", image_width, image_height);
 
     for (int j = image_height - 1; j >= 0; --j) {
         fprintf(stderr, "\rScanlines remaining: %d", j);
         fflush(stderr);
+
+        color * image = malloc(image_width * sizeof(color));
+        pthread_t * threads = malloc(image_width * sizeof(pthread_t));
+
         for (int i = 0; i < image_width; ++i) {
-            color pixel_color = create_vec3(0, 0, 0);
-            for (int s = 0; s < samples_per_pixel; ++s) {
-                double u = (i + random_double()) / (image_width - 1);
-                double v = (j + random_double()) / (image_height - 1);
-                ray r = get_ray(&cam, u, v);
-                pixel_color = add_vec3(pixel_color, ray_color(&r, world, size, max_depth));
-            }
-            write_color(stdout, &pixel_color, samples_per_pixel);
+            params * args = malloc(sizeof(params));
+            args->world = world;
+            args->size = size;
+            args->cam = &cam;
+            args->image_width = image_width;
+            args->image_height = image_height;
+            args->samples_per_pixel = samples_per_pixel;
+            args->i = i;
+            args->j = j;
+            args->max_depth = max_depth;
+            args->pixel = &image[i];
+            pthread_create(&threads[i], NULL, process, args);
+        }
+
+        for (int i = 0; i < image_width; ++i) {
+            pthread_join(threads[i], NULL);
+            write_color(stdout, &image[i], samples_per_pixel);
         }
     }
 
