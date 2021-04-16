@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <pthread.h>
 
 #include "rtweekend.h"
 #include "color.h"
@@ -91,6 +93,8 @@ int random_scene(sphere* world) {
 }
 
 int main() {
+    clock_t t = clock();
+
     // Image
 
     const double aspect_ratio = 3.0 / 2.0;
@@ -134,6 +138,8 @@ int main() {
     }
 
     fprintf(stderr, "\nDone.\n");
+    t = clock() - t;
+    fprintf(stderr, "Elapsed time: %f seconds", (float) t / CLOCKS_PER_SEC);
 
     return EXIT_SUCCESS;
 }
