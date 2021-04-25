@@ -13,11 +13,9 @@ if(WIN32)
             COMMAND ${CMAKE_COMMAND} -E copy
             ${PROJECT_SOURCE_DIR}/pthread/pthreadVC3.dll
             ${PROJECT_SOURCE_DIR}/cmake-build-debug/pthreadVC3.dll)
+    target_include_directories(raytracing PRIVATE pthread)
+    target_link_directories(raytracing PRIVATE pthread)
     target_link_libraries(raytracing pthreadVC3)
 else()
     target_link_libraries(raytracing pthread)
 endif()
-
-target_include_directories(raytracing PRIVATE pthread)
-target_link_directories(raytracing PRIVATE pthread)
-target_link_libraries(raytracing pthreadVC3)
